@@ -1,5 +1,0 @@
----
-claude_user: "claude"
-claude_shell: /bin/zsh
-claude_groups:
-  - wheel
