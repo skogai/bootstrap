@@ -7,17 +7,17 @@ packages:
   # - dunst
   # - xss-lock
   # - feh
-  # - btop
+  - btop
   # - dolt
   # - yq
   # - x11-ssh-askpass
   # - nvm
-  # - ansible
-  # - ansible-core
-  # - base
-  # - base-devel
-  # - git
-  # - github-cli
+  - ansible
+  - ansible-core
+  - base
+  - base-devel
+  - git
+  - github-cli
   # - uv
   # - ansible
   # - ansible-core
@@ -73,14 +73,15 @@ aur_packages:
   # - xdotool
   # - nvm
   # - vesktop
-  # - lazydocker
-  # - lazygit
   # - beads-git
   # - zed
   # - lazybeads-git
   # - rbw
+  - lazydocker
+  - openai-codex
   - lazygit
-  # - lazydocker
+  - oh-my-zsh-git
+  - workmux
 
 # optional AUR packages — commented out for clean bootstrap test
 # - claude-code

@@ -10,26 +10,5 @@
 - name: Install yay AUR helper
   ansible.builtin.include_tasks: aur_install_yay.yml
 
-# Then handle regular package management
-- name: Update pacman package database
-  become: true
-  community.general.pacman:
-    update_cache: true
-
-- name: Upgrade all packages
-  become: true
-  community.general.pacman:
-    upgrade: true
-
-- name: Install packages from list
-  become: true
-  community.general.pacman:
-    name: "{{ packages }}"
-    state: present
-
-# Finally install AUR packages (requires yay to be installed)
-- name: Install AUR packages
-  ansible.builtin.include_tasks: aur_packages.yml
-
 
 

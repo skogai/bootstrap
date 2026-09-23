@@ -1,0 +1,10 @@
+---
+- name: Bootstrap Arch Linux
+  hosts: all
+
+  vars_files:
+    - ../vars/packages.yml
+
+  roles:
+    - role: packages
+      tags: [packages]

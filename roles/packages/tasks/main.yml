@@ -1,19 +1,19 @@
 # handle regular package management
-- name: Update pacman package database
-  become: true
-  community.general.pacman:
-    update_cache: true
-
-- name: Upgrade all packages
-  become: true
-  community.general.pacman:
-    upgrade: true
-
-- name: Install packages from list
-  become: true
-  community.general.pacman:
-    name: "{{ packages }}"
-    state: present
+# - name: Update pacman package database
+#   become_user: aur_builder
+#   community.general.pacman:
+#     update_cache: true
+#
+# - name: Upgrade all packages
+#   become_user: aur_builder
+#   community.general.pacman:
+#     upgrade: true
+#
+# - name: Install packages from list
+#   become_user: aur_builder
+#   community.general.pacman:
+#     name: "{{ packages }}"
+#     state: present
 
 - name: Install AUR packages
   ansible.builtin.include_tasks: aur_packages.yml

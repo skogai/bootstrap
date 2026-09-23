@@ -11,7 +11,7 @@
       tags: [users]
     - role: packages
       tags: [packages]
-    - role: secrets
-      tags: [secrets]
+    # - role: secrets
+    #   tags: [secrets]
     # - role: bitwarden
     #   tags: [bitwarden]
