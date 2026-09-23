@@ -1,6 +1,0 @@
----
-dolt_port: 3306
-dolt_data_dir: "{{ ansible_env.HOME }}/.config/dolt/dbs"
-dolt_max_connections: 200
-dolt_user_name: skogix
-dolt_user_email: emil@skogsund.se
