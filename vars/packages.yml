@@ -1,49 +1,49 @@
 ---
 # Packages from pacman
 packages:
-  - picom
-  - redshift
-  - dex
-  - dunst
-  - xss-lock
-  - feh
-  - btop
-  - dolt
-  - yq
-  - x11-ssh-askpass
-  - nvm
-  - ansible
-  - ansible-core
-  - base
-  - base-devel
-  - git
-  - github-cli
-  - uv
-  - ansible
-  - ansible-core
+  # - picom
+  # - redshift
+  # - dex
+  # - dunst
+  # - xss-lock
+  # - feh
+  # - btop
+  # - dolt
+  # - yq
+  # - x11-ssh-askpass
+  # - nvm
+  # - ansible
+  # - ansible-core
+  # - base
+  # - base-devel
+  # - git
+  # - github-cli
+  # - uv
+  # - ansible
+  # - ansible-core
   # shell + terminal
   - zsh
   - tmux
   - kitty
-  - direnv
-  - fzf
-  - zoxide
+  # - direnv
+  # - fzf
+  # - zoxide
   # cli essentials
-  - bat
-  - ripgrep
-  - fd
-  - jq
-  - yq
-  - tree
-  - less
-  - wget
-  - zip
-  - unzip
+  # - bat
+  # - ripgrep
+  # - fd
+  # - jq
+  # - yq
+  # - tree
+  # - less
+  # - wget
+  # - zip
+  # - unzip
   # system
-  - networkmanager
-  - gnupg
-  - pinentry
-  - dolt
+  # - networkmanager
+  # - gnupg
+  # - pinentry
+  # - dolt
 
 # optional pacman packages (desktop, gui, etc) — commented out for clean bootstrap test
 # - picom
@@ -65,22 +65,22 @@ packages:
 
 # Packages from AUR via yay
 aur_packages:
-  - claude-code
-  - google-chrome
-  - neovim-nightly
-  - pwvucontrol
-  - fabric-ai
-  - xdotool
-  - nvm
-  - vesktop
-  - lazydocker
+  # - claude-code
+  # - google-chrome
+  # - neovim-nightly
+  # - pwvucontrol
+  # - fabric-ai
+  # - xdotool
+  # - nvm
+  # - vesktop
+  # - lazydocker
+  # - lazygit
+  # - beads-git
+  # - zed
+  # - lazybeads-git
+  # - rbw
   - lazygit
-  - beads-git
-  - zed
-  - lazybeads-git
-  - rbw
-  - lazygit
-  - lazydocker
+  # - lazydocker
 
 # optional AUR packages — commented out for clean bootstrap test
 # - claude-code

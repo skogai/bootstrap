@@ -2,22 +2,22 @@
 
 [[ -d "$XDG_RUNTIME_DIR" ]] && SKOGAI_RUNTIME_DIR="${XDG_RUNTIME_DIR}/skogai"
 
-if [[ -d !"${SKOGAI_RUNTIME_DIR}" ]] then; 
-    git -C "${XDG_RUNTIME_DIR}" clone "https://github.com/skogai/runtime.git" "skogai"; 
+if [[ ! -d "${SKOGAI_RUNTIME_DIR}" ]]; then
+    git -C "${XDG_RUNTIME_DIR}" clone "https://github.com/skogai/runtime.git" "skogai"
 else
-    git -C "${SKOGAI_RUNTIME_DIR}" pull 
+    git -C "${SKOGAI_RUNTIME_DIR}" pull
 fi
 
-[[ -f !"${ZDOTDIR}/.zprofile" ]] && cat "${SKOGAI_RUNTIME_DIR}/zprofile.zsh" > "${ZDOTDIR}/.zprofile"
+[[ ! -f "${ZDOTDIR}/.zprofile" ]] && cat "${SKOGAI_RUNTIME_DIR}/zprofile.zsh" > "${ZDOTDIR}/.zprofile"
 [[ -d $XDG_CACHE_DIR  ]] && SKOGAI_CACHE_DIR="${XDG_CACHE_DIR}/skogai"
-mkdir -p $SKOGAI_CACHE_DIR
+mkdir -p "$SKOGAI_CACHE_DIR"
 
 source "${SKOGAI_RUNTIME_DIR}/user-dirs.dirs"
 
-rm "${SKOGAI_CACHE_DIR}/test.env"
+rm -f "${SKOGAI_CACHE_DIR}/test.env"
 export >"${SKOGAI_CACHE_DIR}/test.env"
 
-rm "$HOME/.zprofile"
+rm -f "$HOME/.zprofile"
 
 echo '[[ -f "$XDG_RUNTIME_DIR/skogai/zprofile.zsh" ]] && source "$XDG_RUNTIME_DIR/skogai/zprofile.zsh"' >"$HOME/.zprofile"
 
