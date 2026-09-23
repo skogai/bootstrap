@@ -17,11 +17,13 @@ bootstrap.sh
 ├── ./gh-auth.sh            — vault PAT → gh auth login (skips if already authed)
 ├── ansible-galaxy collection install -r .requirements.yml
 └── ansible-playbook playbooks/bootstrap.yml --ask-become-pass
-    ├── users    — wheel group, aur_builder, yay, pacman packages
-    ├── packages — pacman + AUR packages
-    ├── secrets  — SSH keys from github.com/skogai/secrets
+    ├── users    — wheel group, aur_builder, yay (needs real root once, via --ask-become-pass)
+    ├── packages — pacman + AUR packages, installed via yay as aur_builder (no root needed)
+    ├── secrets  (disabled)
     └── bitwarden (disabled)
 ```
+
+`playbooks/packages.yml` runs just the `packages` role on its own — handy for iterating on the package list without touching users/secrets. All its tasks run as `aur_builder` via `yay`, never as root, so it needs no become-password flag at all: `ansible-playbook playbooks/packages.yml`.
 
 </flow>
 
@@ -37,11 +39,12 @@ bootstrap/
 ├── .requirements.yml      # ansible galaxy collections
 ├── pat.vault              # production PAT (real vault password)
 ├── playbooks/
-│   └── bootstrap.yml      # main playbook
+│   ├── bootstrap.yml      # main playbook
+│   └── packages.yml       # packages role only
 ├── roles/
-│   ├── users/             # groups, aur_builder, yay, packages
-│   ├── packages/          # pacman + AUR package lists
-│   ├── secrets/           # SSH key cloning
+│   ├── users/             # groups, aur_builder, yay
+│   ├── packages/          # pacman + AUR packages, all installed via yay as aur_builder
+│   ├── secrets/           # SSH key cloning (disabled in playbook)
 │   └── bitwarden/         # bitwarden integration (disabled in playbook)
 ├── vars/
 │   ├── main.yml           # user config (user_name: skogix)
