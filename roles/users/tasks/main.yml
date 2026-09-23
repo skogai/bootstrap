@@ -9,6 +9,3 @@
 
 - name: Install yay AUR helper
   ansible.builtin.include_tasks: aur_install_yay.yml
-
-
-
