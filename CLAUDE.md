@@ -27,6 +27,28 @@ bootstrap.sh
 
 </flow>
 
+<users>
+
+two local users matter here: `skogix` (you) and `aur_builder` (build relay, created by the `users` role).
+
+`sudo -l` shows `Defaults targetpw` — sudo prompts for the **target** user's password, not the caller's. So plain `become: true` (target = root) always needs root's own password, no matter who's asking. This is why a become-password-file that isn't literally root's password (e.g. one meant for something else entirely) fails identically on every root task regardless of which playbook or user invokes it — it's not a permissions/guardrail thing, it's just the wrong password for the target.
+
+both of the relevant sudoers rules are group-scoped, not per-user:
+
+```
+/etc/sudoers.d/10-wheel:                %wheel ALL=(ALL:ALL) ALL
+/etc/sudoers.d/12-wheel-to-aur_builder: %wheel ALL=(aur_builder) NOPASSWD: ALL
+/etc/sudoers.d/11-install-aur_builder:  aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman
+```
+
+so any member of `wheel` — not just `skogix` — can become `aur_builder` with no password, and `aur_builder` can then run `/usr/bin/pacman` as any target, including root, with no password either. That's why every task in the `packages` role uses `become_user: aur_builder` + `use: yay` instead of `become: true` directly: it's a passwordless path to root, scoped to one binary.
+
+`NOPASSWD: pacman` is functionally unrestricted root, not a narrow scope — pacman runs arbitrary ALPM hooks/install scripts as root, so anything installable (including from AUR, which `aur_builder` can already build freely) can escalate further. That's intentional here, not an oversight: it's the deliberate line between "runs freely" (package management, via `aur_builder`) and "needs a real root password" (everything else — `users`' group/account setup, and anything not routed through a relay user).
+
+this is precisely the lesson learned from an earlier, removed `claude` role (`1e3c1bf`): it created a dedicated `claude` user with its own bespoke `claude ALL=(ALL) NOPASSWD:ALL` line — unrestricted passwordless root. Since the relay grants above are already on `%wheel`, that bespoke line was pure redundancy layered on top of unnecessary danger: simply adding `claude` to `wheel` — `groups: [wheel]`, nothing else — gets it the exact same safe split every other wheel member gets for free, real root gated behind `targetpw`, package management free via the `aur_builder` relay. No per-user sudoers entry needed, ever, for this shape of agent account.
+
+</users>
+
 <structure>
 
 ```
